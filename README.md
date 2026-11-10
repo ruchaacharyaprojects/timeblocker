@@ -98,3 +98,7 @@ Configuration lives in `packages/mobile/src/config.ts`. This public copy ships w
 - **Built for one person.** It is a working personal project, not a product. Android only. Timezone is fixed to America/Toronto.
 - **Productivity impact is modelled, not measured.** Assuming about 1 hour of weekly planning, 20 planned blocks, and 40% of blocks slipping without help, the reminders, learned placement, and AI drafts would save about 4 to 5 hours a week and raise completion from about 60% to about 85%. The dashboard records the real numbers over time.
 - **Calendar sync window.** Sync covers the current and next week. Background sync runs about every 30 minutes, subject to Android battery limits.
+
+## License
+
+Copyright (c) 2026 Rucha Acharya. All rights reserved. This code is shared for viewing only: no copying, modification, or use without written permission. See [LICENSE](LICENSE).
