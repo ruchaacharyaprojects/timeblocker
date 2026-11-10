@@ -1,0 +1,29 @@
+{
+  "name": "@timeblocker/app-core",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pure on-device TimeBlocker app core: services, ports, repositories, view models, and in-memory fakes. No react-native, no native libraries, no AWS.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.test.json",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@timeblocker/calendar-integration": "file:../calendar-integration",
+    "@timeblocker/flows": "file:../flows",
+    "@timeblocker/reminders": "file:../reminders",
+    "@timeblocker/scheduling-engine": "file:../scheduling-engine",
+    "@timeblocker/usage-metrics": "file:../usage-metrics"
+  },
+  "devDependencies": {
+    "@types/node": "22.10.0",
+    "fast-check": "4.10.2",
+    "typescript": "5.9.3",
+    "vitest": "2.1.9"
+  }
+}

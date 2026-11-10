@@ -1,0 +1,63 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ManageProjectAndBootstrapRoles",
+      "Effect": "Allow",
+      "Action": [
+        "iam:CreateRole",
+        "iam:DeleteRole",
+        "iam:GetRole",
+        "iam:UpdateRole",
+        "iam:PassRole",
+        "iam:TagRole",
+        "iam:UntagRole",
+        "iam:AttachRolePolicy",
+        "iam:DetachRolePolicy",
+        "iam:PutRolePolicy",
+        "iam:DeleteRolePolicy",
+        "iam:GetRolePolicy",
+        "iam:ListRolePolicies",
+        "iam:ListAttachedRolePolicies",
+        "iam:UpdateAssumeRolePolicy"
+      ],
+      "Resource": [
+        "arn:aws:iam::<ACCOUNT_ID>:role/TimeBlocker*",
+        "arn:aws:iam::<ACCOUNT_ID>:role/cdk-*"
+      ]
+    },
+    {
+      "Sid": "ReadManagedPolicies",
+      "Effect": "Allow",
+      "Action": ["iam:GetPolicy", "iam:GetPolicyVersion", "iam:ListPolicies"],
+      "Resource": "*"
+    },
+    {
+      "Sid": "NoAdminOnProjectRoles",
+      "Effect": "Deny",
+      "Action": "iam:AttachRolePolicy",
+      "Resource": "arn:aws:iam::<ACCOUNT_ID>:role/TimeBlocker*",
+      "Condition": {
+        "ArnEquals": { "iam:PolicyARN": "arn:aws:iam::aws:policy/AdministratorAccess" }
+      }
+    },
+    {
+      "Sid": "NoUsersKeysOrMfaChanges",
+      "Effect": "Deny",
+      "Action": [
+        "iam:CreateUser",
+        "iam:CreateAccessKey",
+        "iam:CreateLoginProfile",
+        "iam:UpdateLoginProfile",
+        "iam:AttachUserPolicy",
+        "iam:PutUserPolicy",
+        "iam:AttachGroupPolicy",
+        "iam:PutGroupPolicy",
+        "iam:CreatePolicyVersion",
+        "iam:DeactivateMFADevice",
+        "iam:DeleteVirtualMFADevice"
+      ],
+      "Resource": "*"
+    }
+  ]
+}

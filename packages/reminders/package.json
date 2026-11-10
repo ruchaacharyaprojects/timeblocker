@@ -1,0 +1,20 @@
+{
+  "name": "@timeblocker/reminders",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Custom reminders for TimeBlocker (R5): pure selection of blocks and meetings-with-others starting ~15 minutes out, and delivery of actionable notifications (\"I'm in\", \"Skip\", \"Move it\") through an injected push port.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.8"
+  }
+}

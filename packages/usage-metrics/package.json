@@ -1,0 +1,20 @@
+{
+  "name": "@timeblocker/usage-metrics",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Android usage metrics for TimeBlocker: UsageStatsManager permission flow, on-device aggregation into summary signals, and the user-editable distraction app list. Raw app history never leaves the device.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.8"
+  }
+}

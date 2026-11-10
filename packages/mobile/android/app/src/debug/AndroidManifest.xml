@@ -1,0 +1,5 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Debug builds only: lets the demo-data helpers write sleep sessions into
+         Health Connect (R25.5). Never present in release. -->
+    <uses-permission android:name="android.permission.health.WRITE_SLEEP" />
+</manifest>

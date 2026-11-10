@@ -1,0 +1,15 @@
+<!--
+  Add to the host Android app's AndroidManifest.xml for custom reminders (R5).
+
+  POST_NOTIFICATIONS is a runtime permission on Android 13+ (API 33); the app
+  must request it at runtime before the actionable reminder notifications
+  ("I'm in" / "Skip" / "Move it") can be shown. The action-button taps are
+  delivered to a package-internal broadcast (registered at runtime in
+  RemindersModule with RECEIVER_NOT_EXPORTED), so no <receiver> declaration or
+  exported component is needed.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+</manifest>

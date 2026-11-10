@@ -1,0 +1,113 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Google Calendar + Google OAuth (the only network hosts; R12.3). -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Local notifications (R13.8): runtime permission on Android 13+ (API 33). -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- Exact reminder alarms (R13.10). USE_EXACT_ALARM is granted at install on
+         Android 13+; SCHEDULE_EXACT_ALARM covers Android 12/12L (API 31-32) only,
+         where the user can revoke it and reminders fall back to inexact. -->
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <uses-permission
+        android:name="android.permission.SCHEDULE_EXACT_ALARM"
+        android:maxSdkVersion="32"
+        tools:replace="android:maxSdkVersion" />
+
+    <!-- BootReceiver re-arms stored alarms after a reboot. -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- HeadlessJsTaskService.acquireWakeLockNow (notification action taps). -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- Usage metrics (R7.1): app-op permission granted from the Usage Access
+         settings screen; declaring it requires tools:ignore. -->
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+
+    <!-- Samsung Health sleep via Health Connect (R25): read-only. WRITE_SLEEP is
+         declared only in src/debug/AndroidManifest.xml (demo data). -->
+    <uses-permission android:name="android.permission.health.READ_SLEEP" />
+    <queries>
+        <package android:name="com.google.android.apps.healthdata" />
+    </queries>
+
+    <application
+      android:name=".MainApplication"
+      android:label="@string/app_name"
+      android:icon="@mipmap/ic_launcher"
+      android:roundIcon="@mipmap/ic_launcher_round"
+      android:allowBackup="false"
+      android:theme="@style/AppTheme"
+      android:usesCleartextTraffic="${usesCleartextTraffic}"
+      android:supportsRtl="true">
+      <activity
+        android:name=".MainActivity"
+        android:label="@string/app_name"
+        android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
+        android:launchMode="singleTask"
+        android:windowSoftInputMode="adjustResize"
+        android:exported="true">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        <!-- Notification body taps: timeblocker://block/<id>,
+             timeblocker://nothing-fits/<id>. Separate from the OAuth redirect
+             scheme (com.timeblocker.app), which react-native-app-auth's merged
+             RedirectUriReceiverActivity handles via appAuthRedirectScheme. -->
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="timeblocker" />
+        </intent-filter>
+      </activity>
+
+      <!-- TimeBlockerAlarms (packages/reminders/android). AlarmReceiver and
+           ActionReceiver only receive our explicit, immutable PendingIntents. -->
+      <receiver
+        android:name="com.timeblocker.reminders.AlarmReceiver"
+        android:exported="false" />
+      <receiver
+        android:name="com.timeblocker.reminders.ActionReceiver"
+        android:exported="false" />
+      <!-- Exported so the system can deliver these protected broadcasts. -->
+      <receiver
+        android:name="com.timeblocker.reminders.BootReceiver"
+        android:exported="true">
+        <intent-filter>
+            <action android:name="android.intent.action.BOOT_COMPLETED" />
+            <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+        </intent-filter>
+      </receiver>
+      <!-- Headless JS task for notification action taps (R13.4). -->
+      <service
+        android:name="com.timeblocker.reminders.NotificationActionTaskService"
+        android:exported="false" />
+      <!-- Health Connect permission rationale / usage. Android 13 and below
+           show the rationale via ACTION_SHOW_PERMISSIONS_RATIONALE; Android 14+
+           uses the VIEW_PERMISSION_USAGE alias. Both open MainActivity (no new UI). -->
+      <activity-alias
+        android:name="HealthPermissionsRationaleActivity"
+        android:targetActivity=".MainActivity"
+        android:exported="true">
+        <intent-filter>
+            <action android:name="androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE" />
+        </intent-filter>
+      </activity-alias>
+      <activity-alias
+        android:name="ViewPermissionUsageActivity"
+        android:targetActivity=".MainActivity"
+        android:permission="android.permission.START_VIEW_PERMISSION_USAGE"
+        android:exported="true">
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW_PERMISSION_USAGE" />
+            <category android:name="android.intent.category.HEALTH_PERMISSIONS" />
+        </intent-filter>
+      </activity-alias>
+    </application>
+</manifest>

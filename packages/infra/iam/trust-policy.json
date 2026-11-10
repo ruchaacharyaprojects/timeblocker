@@ -1,0 +1,12 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "OnlyRuchaWithMfa",
+      "Effect": "Allow",
+      "Principal": { "AWS": "arn:aws:iam::<ACCOUNT_ID>:user/rucha" },
+      "Action": "sts:AssumeRole",
+      "Condition": { "Bool": { "aws:MultiFactorAuthPresent": "true" } }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "name": "@timeblocker/flows",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pure TimeBlocker orchestration (intake, plan, reschedule, prompt, detect, review) shared by the infra Lambdas and the on-device app core. No network or I/O.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@timeblocker/calendar-integration": "file:../calendar-integration",
+    "@timeblocker/scheduling-engine": "file:../scheduling-engine",
+    "@timeblocker/usage-metrics": "file:../usage-metrics"
+  },
+  "devDependencies": {
+    "fast-check": "4.10.2",
+    "typescript": "5.9.3",
+    "vitest": "2.1.9"
+  }
+}

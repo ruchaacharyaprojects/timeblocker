@@ -1,0 +1,37 @@
+{
+  "name": "@timeblocker/infra",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AWS CDK infrastructure for TimeBlocker: API Gateway + Lambdas, DynamoDB tables, EventBridge Scheduler, and Secrets Manager.",
+  "type": "module",
+  "bin": {
+    "infra": "bin/infra.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "synth": "cdk synth",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@aws-sdk/client-bedrock-runtime": "3.1164.0",
+    "@aws-sdk/client-dynamodb": "^3.665.0",
+    "@aws-sdk/client-secrets-manager": "^3.665.0",
+    "@aws-sdk/lib-dynamodb": "^3.665.0",
+    "@types/node": "^22.9.0",
+    "aws-cdk": "^2.160.0",
+    "esbuild": "0.28.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.8"
+  },
+  "dependencies": {
+    "@timeblocker/calendar-integration": "file:../calendar-integration",
+    "@timeblocker/flows": "file:../flows",
+    "@timeblocker/reminders": "file:../reminders",
+    "@timeblocker/scheduling-engine": "file:../scheduling-engine",
+    "@timeblocker/usage-metrics": "file:../usage-metrics",
+    "aws-cdk-lib": "^2.160.0",
+    "constructs": "^10.4.2"
+  }
+}

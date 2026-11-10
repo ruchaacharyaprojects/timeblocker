@@ -1,0 +1,15 @@
+<!--
+  Add to the host Android app's AndroidManifest.xml (R7.1).
+
+  PACKAGE_USAGE_STATS is a special "app-op" permission: declaring it with
+  tools:ignore is required, but the user must still grant it from the system
+  Usage Access settings screen (opened by UsageMetricsModule.openUsageAccessSettings).
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+
+</manifest>
